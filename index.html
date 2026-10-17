@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brockton Safety Log</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="./icon-180.png" />
+    <meta name="theme-color" content="#0b5cad" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Brockton Log" />
+  </head>
+  <body>
+    <header>
+      <h1>Brockton Safety Log</h1>
+      <p class="lag" id="lag">
+        Built from the Brockton Police dispatch log (calls for service, not confirmed crimes).
+        The department posts the log as PDFs every week or two. Tap "Get latest police logs" to open
+        the department's page and download the newest PDF, then tap "Add downloaded PDF" to load it here.
+        Names are never kept, and locations are shown by block.
+      </p>
+    </header>
+
+    <section class="controls">
+      <a id="getlog" class="btn" href="https://www.brocktonpolice.com/category/police-log/" target="_blank" rel="noopener">Get latest police logs</a>
+      <button id="import" type="button" class="secondary">Add downloaded PDF</button>
+      <input id="file" type="file" accept="application/pdf,.pdf" multiple hidden />
+      <label>Period
+        <select id="days">
+          <option value="1">Latest day in log</option>
+          <option value="3">Last 3 days of log</option>
+          <option value="7" selected>Last 7 days of log</option>
+          <option value="14">Last 14 days of log</option>
+          <option value="0">Everything imported</option>
+        </select>
+      </label>
+      <label>Type
+        <select id="cat">
+          <option value="priority" selected>Priority (shots, violence, fire, crashes)</option>
+          <option value="weapons">Shots / weapons</option>
+          <option value="violence">Violence</option>
+          <option value="fire">Fire</option>
+          <option value="crash">Crashes</option>
+          <option value="all">All calls</option>
+        </select>
+      </label>
+      <label>Search
+        <input id="q" type="search" placeholder="Street or keyword" autocomplete="off" />
+      </label>
+      <button id="clear" type="button" class="secondary">Clear data</button>
+      <span id="status" class="status"></span>
+    </section>
+
+    <div id="banner" class="banner" hidden role="status"></div>
+
+    <main>
+      <div id="map"></div>
+      <ul id="feed"></ul>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
